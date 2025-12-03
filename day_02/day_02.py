@@ -5,26 +5,22 @@ def part_one(input_data):
     total = 0
     ids = input_data.split(',')
     for id_range in ids:
-        start_value = int(id_range.split('-')[0])
-        end_value = int(id_range.split('-')[1])
+        start_value, end_value = map(int, id_range.split('-'))
         for value in range(start_value, end_value + 1):
             string = str(value)
             if len(string) % 2 == 0:
                 mid = len(string) // 2
                 if string[:mid] == string[mid:]:
-                    print(f"Invalid ID: {value}")
                     total += value
     print(f"Final total: {total}")
         
     
 def part_two(input_data):
-    print("Part One")
+    print("Part Two")
     total = 0
     ids = input_data.split(',')
     for id_range in ids:
-        start_value = int(id_range.split('-')[0])
-        end_value = int(id_range.split('-')[1])
-        print(f"Processing range: {start_value}-{end_value}")
+        start_value, end_value = map(int, id_range.split('-'))
         for value in range(start_value, end_value + 1):
             string = str(value)
             length = len(string)
@@ -34,8 +30,8 @@ def part_two(input_data):
                     for pos in range(0, length - pattern_length, pattern_length):
                         if string[pos:pos+pattern_length] != string[pos+pattern_length:pos+2*pattern_length]:
                                 invalid = False
+                                break
                     if invalid:
-                        print(f"Invalid ID: {value}")
                         total += value
                         break
     print(f"Final total: {total}")
