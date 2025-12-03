@@ -15,7 +15,16 @@ def part_one(input_data):
         
     
 def part_two(input_data):
-    print("Part Two")    
+    print("Part Two")
+    position = 50
+    password = 0
+    for rotation in input_data.splitlines():
+        dir = 1 if rotation[0] == 'R' else -1
+        steps = int(rotation[1:])
+        for _ in range(steps):
+            position = (position + dir) % 100
+            password += 1 if position == 0 else 0
+    print(f"Final Password: {password}")
     
 if __name__ == "__main__":
     print(f"--- Day {day} ---")
