@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 day = "07"
 
 total = 0
@@ -41,8 +43,31 @@ def part_one(input_data):
     print(total)     
             
     
+def count_timelines(rows, row, col):
+    @lru_cache(maxsize=None)
+    def helper(row, col):
+        if row >= len(rows) or col < 0 or col >= len(rows[row]):
+            return 1
+        cell = rows[row][col]
+        if cell == '.':
+            return helper(row + 1, col)
+        elif cell == '^':
+            return helper(row + 1, col - 1) + helper(row + 1, col + 1)
+        else:
+            return helper(row + 1, col)
+    return helper(row, col)
+
 def part_two(input_data):
-    print("Part Two")    
+    print("Part Two")  
+    rows = input_data.splitlines()
+    print(rows)
+    
+    start_pos = rows[0].index('S')
+    print(f"Start position: {start_pos}")
+    
+    total_timelines = count_timelines(tuple(rows), 1, start_pos)
+    print(f"Total timelines: {total_timelines}")
+      
     
 if __name__ == "__main__":
     print(f"--- Day {day} ---")
