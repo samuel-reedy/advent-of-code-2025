@@ -24,12 +24,25 @@ def part_one(input_data):
     
     
 def part_two(input_data):
-    print ("Part Two")
+    print("Part Two")
+    
     ranges, _ = input_data.split("\n\n")
     
-    ranges = [[int(x) for x in range.split("-")] for range in ranges.splitlines()]
+    ranges = [[int(x) for x in line.split("-")] for line in ranges.splitlines()]
     
-    
+    ranges.sort(key=lambda x: x[0])
+
+    merged = []
+    for start, end in ranges:
+        if not merged or merged[-1][1] < start - 1:
+            merged.append([start, end])
+        else:
+            merged[-1][1] = max(merged[-1][1], end)
+
+    total = sum(end - start + 1 for start, end in merged)
+    print(total)
+        
+        
     
 if __name__ == "__main__":
     print(f"--- Day {day} ---")
